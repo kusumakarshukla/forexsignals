@@ -22,14 +22,14 @@ def get_stock_data(symbol, interval="1d", period="30d"):
 
 # Function to calculate technical indicators
 def add_indicators(df):
-    df["SMA_50"] = ta.sma(df["Close"], length=50)
-    df["SMA_200"] = ta.sma(df["Close"], length=200)
-    df["RSI"] = ta.rsi(df["Close"], length=14)
-    bbands = ta.bbands(df["Close"], length=20)
-    bbands = ta.bbands(df["Close"], length=20)
-    df["BB_Upper"] = bbands["BBU_20_2.0"]
-    df["BB_Lower"] = bbands["BBL_20_2.0"]
-    df["BB_Mid"] = bbands["BBM_20_2.0"]
+    df["SMA_50"] = ta.sma(df["Close"], length=50).fillna(0)
+    df["SMA_200"] = ta.sma(df["Close"], length=200).fillna(0)
+    df["RSI"] = ta.rsi(df["Close"], length=14).fillna(0)
+    bbands = ta.bbands(df["Close"], length=20).fillna(0)
+    bbands = ta.bbands(df["Close"], length=20).fillna(0)
+    df["BB_Upper"] = bbands["BBU_20_2.0"].fillna(0)
+    df["BB_Lower"] = bbands["BBL_20_2.0"].fillna(0)
+    df["BB_Mid"] = bbands["BBM_20_2.0"].fillna(0)
     
     return df
 
