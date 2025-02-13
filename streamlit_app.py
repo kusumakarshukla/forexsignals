@@ -65,8 +65,8 @@ for asset in ASSETS:
         latest = df.iloc[-1]
         signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI']])
     
-    # Convert to DataFrame and display
-    signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
+# Convert to DataFrame and display
+signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
 
 st.subheader("Buy Signals")
 st.dataframe(signal_df[(signal_df['Buy Signal']==True )])
