@@ -6,8 +6,8 @@ import time
 
 # Define currency pairs to monitor
 ASSETS = [
-    "EURUSD=X", "GBPUSD=X", "USDJPY=X", "AUDUSD=X", "USDCAD=X", 
-    "USDCHF=X", "NZDUSD=X", "EURGBP=X", "EURJPY=X", "GBPJPY=X","GBPUSD=X"
+    "USDJPY=X", "EURUSD=X","GBPJPY=X","EURJPY=X","AUDUSD=X","GBPUSD=X","AUDJPY=X","USDCAD=X","EURAUD=X","NZDJPY=X","CADJPY=X","EURAUD=X","NZDJPY=X","CADJPY=X","EURGBP=X","CHFJPY=X","USDCHF=X","GBPCHF=X",
+    "GBPCHF=X","EURCAD=X","AUDCAD=X","","AUDCHF=X","NZDCAD=X","NZDCHF=X","GBPAUD=X","AUDNZD=X","GBPNZD=X","EURNZD=X","CADCHF=X","GBPCAD=X"
 ]  # Add more currency pairs as needed
 REFRESH_INTERVAL = 300  # 5 minutes in seconds
 
