@@ -73,10 +73,10 @@ while True:
     st.subheader("Sell Signals")
     sell_df= signal_df[(signal_df['Sell Signal']==True )]
     st.dataframe(sell_df)
-    if (len(buy_df)>=0 or len(sell_df)>0):
+    if (len(buy_df)>0 or len(sell_df)>0):
         notification = ','.join(buy_df['Asset'].unique())
-        notification = "BUY SIGNAL GENERATED---->\n"+notification
-        notification = notification+"\n\nSELL SIGNAL GENERATED------->"+','.join(sell_df['Asset'].unique())
+        notification = "BUY SIGNAL GENERATED-\n"+notification
+        notification = notification+"\n\nSELL SIGNAL GENERATED-"+','.join(sell_df['Asset'].unique())
         url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
         data = {"chat_id": CHAT_ID, "text": notification}
         requests.post(url, data=data)
