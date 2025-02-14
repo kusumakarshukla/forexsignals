@@ -49,7 +49,7 @@ def generate_signals(df):
 
 # Streamlit app
 st.title("Live Forex Trading Signals")
-st.write("This app updates every 5 minutes with Buy/Sell signals for major currency pairs.")
+
 
 signals = []
 for asset in ASSETS:
@@ -68,7 +68,7 @@ st.subheader("Buy Signals")
 st.dataframe(signal_df[(signal_df['Buy Signal']==True )])
 st.subheader("Sell Signals")
 st.dataframe(signal_df[(signal_df['Sell Signal']==True )])
-st.write("Refreshing in 5 minutes...")
+
     
     
     
