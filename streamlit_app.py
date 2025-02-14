@@ -10,7 +10,8 @@ ASSETS = [
     "GBPCHF=X","EURCAD=X","AUDCAD=X","AUDCHF=X","NZDCAD=X","NZDCHF=X","GBPAUD=X","AUDNZD=X","GBPNZD=X","EURNZD=X","CADCHF=X","GBPCAD=X"
 ]  # Add more currency pairs as needed
 REFRESH_INTERVAL = 300  # 5 minutes in seconds
-
+TELEGRAM_TOKEN = "7801392960:AAHApxpHlv5SDBtjAb2qYuXKE6wZEQlTIdU"
+CHAT_ID = "7801392960"
 # Function to fetch forex data
 def get_stock_data(symbol, interval="1d", period="30d"):
     df = yf.download(symbol, interval=interval, period=period)
@@ -21,6 +22,7 @@ def get_stock_data(symbol, interval="1d", period="30d"):
     return df
 
 # Function to calculate technical indicators
+
 def add_indicators(df):
     df["SMA_50"] = ta.sma(df["Close"], length=50).fillna(0)
     df["SMA_200"] = ta.sma(df["Close"], length=200).fillna(0)
@@ -50,24 +52,30 @@ def generate_signals(df):
 # Streamlit app
 st.title("Live Forex Trading Signals")
 
-
-signals = []
-for asset in ASSETS:
-        df = get_stock_data(asset, interval="1d", period="1y")
-        if df.empty:
-            continue
-        df = add_indicators(df)
-        df = generate_signals(df)
-        latest = df.iloc[-1]
-        signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI']])
+while True:
+    signals = []
+    for asset in ASSETS:
+            df = get_stock_data(asset, interval="1d", period="1y")
+            if df.empty:
+                continue
+            df = add_indicators(df)
+            df = generate_signals(df)
+            latest = df.iloc[-1]
+            signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI']])
+        
+    # Convert to DataFrame and display
+    signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
     
-# Convert to DataFrame and display
-signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
-
-st.subheader("Buy Signals")
-st.dataframe(signal_df[(signal_df['Buy Signal']==True )])
-st.subheader("Sell Signals")
-st.dataframe(signal_df[(signal_df['Sell Signal']==True )])
+    st.subheader("Buy Signals")
+    st.dataframe(signal_df[(signal_df['Buy Signal']==True )])
+    st.subheader("Sell Signals")
+    st.dataframe(signal_df[(signal_df['Sell Signal']==True )])
+    notification = ','.join(signal_df[(signal_df['Buy Signal']==True )]['Asset'].unique())
+    notification = "BUY SIGNAL GENERATED---->"+notification
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+    data = {"chat_id": CHAT_ID, "text": notification}
+    requests.post(url, data=data)
+    time.sleep(REFRESH_INTERVAL)
 
     
     
