@@ -36,16 +36,14 @@ def add_indicators(df):
 # Function to generate buy/sell signals
 def generate_signals(df):
     df["Buy_Signal"] = (
-        (df["RSI"] <= 30) & 
-        (df["Close"] < df["BB_Mid"]))
+        (df["RSI"] <= 30) 
            
        
     
     
     
     df["Sell_Signal"] = (
-        (df["RSI"] >= 70) & 
-        (df["Close"] > df["BB_Mid"]) )
+        (df["RSI"] >= 70) )
     
     return df
 
