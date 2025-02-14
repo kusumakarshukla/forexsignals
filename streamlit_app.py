@@ -12,7 +12,7 @@ ASSETS = [
 ]  # Add more currency pairs as needed
 REFRESH_INTERVAL = 300  # 5 minutes in seconds
 TELEGRAM_TOKEN = "7801392960:AAHApxpHlv5SDBtjAb2qYuXKE6wZEQlTIdU"
-CHAT_ID = "7801392960"
+CHAT_ID = "7921155520"
 # Function to fetch forex data
 def get_stock_data(symbol, interval="1d", period="30d"):
     df = yf.download(symbol, interval=interval, period=period)
