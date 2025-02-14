@@ -3,6 +3,7 @@ import pandas as pd
 import yfinance as yf
 import pandas_ta as ta
 import time
+import requests
 
 # Define currency pairs to monitor
 ASSETS = [
