@@ -77,6 +77,7 @@ while True:
     data = {"chat_id": CHAT_ID, "text": notification}
     requests.post(url, data=data)
     time.sleep(REFRESH_INTERVAL)
+    st.rerun()
 
     
     
