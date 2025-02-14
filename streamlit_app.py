@@ -68,14 +68,18 @@ while True:
     signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
     
     st.subheader("Buy Signals")
-    st.dataframe(signal_df[(signal_df['Buy Signal']==True )])
+    buy_df = signal_df[(signal_df['Buy Signal']==True )]
+    st.dataframe(buy_df)
     st.subheader("Sell Signals")
-    st.dataframe(signal_df[(signal_df['Sell Signal']==True )])
-    notification = ','.join(signal_df[(signal_df['Buy Signal']==True )]['Asset'].unique())
-    notification = "BUY SIGNAL GENERATED---->"+notification
-    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
-    data = {"chat_id": CHAT_ID, "text": notification}
-    requests.post(url, data=data)
+    sell_df= signal_df[(signal_df['Sell Signal']==True )]
+    st.dataframe(sell_df)
+    if (len(buy_df)==0 or len(sell_df)>0):
+        notification = ','.join(buy_df['Asset'].unique())
+        notification = "BUY SIGNAL GENERATED---->\n"+notification
+        notification = notification+"\n\nSELL SIGNAL GENERATED------->"+','.join(sell_df['Asset'].unique())
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+        data = {"chat_id": CHAT_ID, "text": notification}
+        requests.post(url, data=data)
     time.sleep(REFRESH_INTERVAL)
     st.rerun()
 
