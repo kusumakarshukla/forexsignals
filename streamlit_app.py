@@ -37,7 +37,7 @@ def add_indicators(df):
 def generate_signals(df):
     df["Buy_Signal"] = (
         (df["RSI"] <= 30) & 
-        (df["Close"] < df["BB_Mid"])
+        (df["Close"] < df["BB_Mid"]))
            
        
     
@@ -45,7 +45,7 @@ def generate_signals(df):
     
     df["Sell_Signal"] = (
         (df["RSI"] >= 70) & 
-        (df["Close"] > df["BB_Mid"]) 
+        (df["Close"] > df["BB_Mid"]) )
     
     return df
 
