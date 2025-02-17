@@ -62,7 +62,7 @@ while True:
     signals = []
     for asset in ASSETS:
             df = get_stock_data(asset, interval="1d", period="1y")
-            if len(df)==<10:
+            if len(df)<10:
                 continue
             df = add_indicators(df)
             df = generate_signals(df)
