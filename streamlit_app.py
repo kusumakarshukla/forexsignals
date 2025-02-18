@@ -4,6 +4,7 @@ import yfinance as yf
 import pandas_ta as ta
 import time
 import requests
+import numpy as np
 
 # Define currency pairs to monitor
 ASSETS = ['EURUSD=X', 'USDJPY=X', 'GBPUSD=X', 'USDCHF=X', 'AUDUSD=X', 'USDCAD=X', 'NZDUSD=X',
