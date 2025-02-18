@@ -80,7 +80,7 @@ while True:
     signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI","SMA_Signal"])
     
     st.subheader("Buy Signals")
-    buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal]=='BUY'])]
+    buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='BUY'])]
     st.dataframe(buy_df)
     st.subheader("Sell Signals")
     sell_df= signal_df[(signal_df['Sell Signal']==True ) | (signal_df[signal_df['SMA_Signal]=='SELL'])]
