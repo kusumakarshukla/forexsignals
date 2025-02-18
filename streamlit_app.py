@@ -49,8 +49,7 @@ def generate_signals(df):
     df["Sell_Signal"] = (
         (df["RSI"] >= 70) )
            
-    df["Prev_SMA_50"] = df["SMA_50"].shift(1)  # Previous day's 50 SMA
-    df["Prev_SMA_200"] = df["SMA_200"].shift(1)  # Previous day's 200 SMA
+  
 
     df["SMA_Signal"] = np.where(
         (df["SMA_50"] > df["SMA_200"]),
@@ -82,10 +81,10 @@ while True:
     signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI","SMA_Signal"])
     print(signal_df)
     st.subheader("Buy Signals")
-    buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='BUY'])]
+    buy_df = signal_df[(signal_df['Buy Signal']==True ) & (signal_df[signal_df['SMA_Signal']=='BUY'])]
     st.dataframe(buy_df)
     st.subheader("Sell Signals")
-    sell_df= signal_df[(signal_df['Sell Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='SELL'])]
+    sell_df= signal_df[(signal_df['Sell Signal']==True ) & (signal_df[signal_df['SMA_Signal']=='SELL'])]
     st.dataframe(sell_df)
     if (len(buy_df)>0 or len(sell_df)>0):
         notification = ','.join(buy_df['Asset'].unique())
