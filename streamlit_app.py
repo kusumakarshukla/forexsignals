@@ -83,7 +83,7 @@ while True:
     buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='BUY'])]
     st.dataframe(buy_df)
     st.subheader("Sell Signals")
-    sell_df= signal_df[(signal_df['Sell Signal']==True ) | (signal_df[signal_df['SMA_Signal]=='SELL'])]
+    sell_df= signal_df[(signal_df['Sell Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='SELL'])]
     st.dataframe(sell_df)
     if (len(buy_df)>0 or len(sell_df)>0):
         notification = ','.join(buy_df['Asset'].unique())
