@@ -80,7 +80,7 @@ while True:
         
     # Convert to DataFrame and display
     signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI","SMA_Signal"])
-    
+    print(signal_df)
     st.subheader("Buy Signals")
     buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal']=='BUY'])]
     st.dataframe(buy_df)
