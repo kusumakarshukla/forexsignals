@@ -45,6 +45,8 @@ def add_indicators(df):
 def generate_signals(df):
     df["Buy_Signal"] = (
         (df["RSI"] <= 30) )
+    df["Sell_Signal"] = (
+        (df["RSI"] >= 70) )
            
     df["Prev_SMA_50"] = df["SMA_50"].shift(1)  # Previous day's 50 SMA
     df["Prev_SMA_200"] = df["SMA_200"].shift(1)  # Previous day's 200 SMA
