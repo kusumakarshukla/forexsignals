@@ -74,6 +74,7 @@ while True:
                 continue
             df = add_indicators(df)
             df = generate_signals(df)
+            df.dropna(inplace=True)
             latest = df.iloc[-1]
             signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI'],latest["SMA_Signal"]])
         
