@@ -46,13 +46,18 @@ def generate_signals(df):
     df["Buy_Signal"] = (
         (df["RSI"] <= 30) )
            
-       
-    
-    
-    
-    df["Sell_Signal"] = (
-        (df["RSI"] >= 70) )
-    
+    df["Prev_SMA_50"] = df["SMA_50"].shift(1)  # Previous day's 50 SMA
+    df["Prev_SMA_200"] = df["SMA_200"].shift(1)  # Previous day's 200 SMA
+
+    df["SMA_Signal"] = np.where(
+        (df["Prev_SMA_50"] < df["Prev_SMA_200"]) & (df["SMA_50"] > df["SMA_200"]),
+        "BUY",
+        np.where(
+            (df["Prev_SMA_50"] > df["Prev_SMA_200"]) & (df["SMA_50"] < df["SMA_200"]),
+            "SELL",
+            "HOLD"
+        )
+    )
     return df
 
 # Streamlit app
@@ -67,16 +72,16 @@ while True:
             df = add_indicators(df)
             df = generate_signals(df)
             latest = df.iloc[-1]
-            signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI']])
+            signals.append([asset, latest["Close"], latest["Buy_Signal"], latest["Sell_Signal"],latest['RSI'],latest["SMA_Signal"]])
         
     # Convert to DataFrame and display
-    signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI"])
+    signal_df = pd.DataFrame(signals, columns=["Asset", "Latest Price", "Buy Signal", "Sell Signal","RSI","SMA_Signal"])
     
     st.subheader("Buy Signals")
-    buy_df = signal_df[(signal_df['Buy Signal']==True )]
+    buy_df = signal_df[(signal_df['Buy Signal']==True ) | (signal_df[signal_df['SMA_Signal]=='BUY'])]
     st.dataframe(buy_df)
     st.subheader("Sell Signals")
-    sell_df= signal_df[(signal_df['Sell Signal']==True )]
+    sell_df= signal_df[(signal_df['Sell Signal']==True ) | (signal_df[signal_df['SMA_Signal]=='SELL'])]
     st.dataframe(sell_df)
     if (len(buy_df)>0 or len(sell_df)>0):
         notification = ','.join(buy_df['Asset'].unique())
