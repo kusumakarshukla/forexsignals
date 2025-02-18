@@ -53,10 +53,10 @@ def generate_signals(df):
     df["Prev_SMA_200"] = df["SMA_200"].shift(1)  # Previous day's 200 SMA
 
     df["SMA_Signal"] = np.where(
-        (df["Prev_SMA_50"] < df["Prev_SMA_200"]) & (df["SMA_50"] > df["SMA_200"]),
+        (df["SMA_50"] > df["SMA_200"]),
         "BUY",
         np.where(
-            (df["Prev_SMA_50"] > df["Prev_SMA_200"]) & (df["SMA_50"] < df["SMA_200"]),
+             (df["SMA_50"] < df["SMA_200"]),
             "SELL",
             "HOLD"
         )
